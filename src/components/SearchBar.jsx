@@ -1,4 +1,4 @@
-export function SearchBar () {
+export const SearchBar = () => {
     
 }
 

@@ -1,15 +1,12 @@
-import {animes} from '../pages/home';
+import {AnimeCard} from './AnimeCard';
 
-export function AnimeList (){
-     return(
-        <div>
-            <h1>Lista de animes</h1>
-            <ul>{animes.map(anime => (
-                <li key={anime.id}> {anime.nome} {anime.personagem} </li>
-            ))}
-            </ul>
-        </div>
-     )
-}
+// export const AnimeList = ({animes}) =>{
+//      return(
+//         <div>
+//            {animes.map(anime =>(
+//             <AnimeCard key={anime.id} anime={anime} />
+//         </div>
+//      )
+// };
 
 
