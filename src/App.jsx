@@ -1,24 +1,18 @@
+import { AnimeCard } from './components/AnimeCard';
 import {AnimeList} from './components/AnimeList';
-import {Header} from './components/Header'
-import {SearchBar} from './components/SearchBar'
+import {Header} from './components/Header';
+import {SearchBar} from './components/SearchBar';
+import {Home} from './pages/home';
+
 
 function App() {
     return (
-         <div className="">
-            <AnimeList
-                titulo='One Piece'
-                nota='10' 
-            />
-
-            <Header
-                cor='vermelho'
-            />
-
-            <SearchBar
-            personagem='Sanji'
-            />
+        <>
+        
+        <Home/>
+        </>
             
-        </div>
+            
     )
 }
 
