@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-@import "tailwindcss";
-=======
 @import 'tailwindcss';
 
 /* Tilt (hover) effect para cards */
@@ -44,4 +41,3 @@
   mix-blend-mode: screen;
   transition: opacity 120ms ease-out;
 }
->>>>>>> 9885aee (atualizando estrutura e estilização)
