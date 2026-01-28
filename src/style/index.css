@@ -1,1 +1,47 @@
+<<<<<<< HEAD
 @import "tailwindcss";
+=======
+@import 'tailwindcss';
+
+/* Tilt (hover) effect para cards */
+.tiltCard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  transform-style: preserve-3d;
+  transition: transform 140ms ease-out;
+  will-change: transform;
+}
+
+.tiltCard-layers {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.tiltCard-shadow {
+  position: absolute;
+  inset: 6% 6%;
+  border-radius: inherit;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 180ms ease-out;
+  pointer-events: none;
+}
+
+.tiltCard:hover .tiltCard-shadow {
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45), 0 16px 38px rgba(0, 0, 0, 0.35);
+}
+
+.tiltCard-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: opacity 120ms ease-out;
+}
+>>>>>>> 9885aee (atualizando estrutura e estilização)
