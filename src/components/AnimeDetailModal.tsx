@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useGetAnimeFull } from '../hooks/getAnime'
 import type { JikanAnimeFull } from '../types/jikan'
+import { useFavorite } from '../context/FavoriteContext'
+import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid'
+import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline'
+
 
 const EXIT_DURATION_MS = 220
 
@@ -23,6 +27,8 @@ interface AnimeDetailModalProps {
 export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalProps) {
     const { anime, loading, error } = useGetAnimeFull(animeId)
     const [isExiting, setIsExiting] = useState(false)
+    const { favorites, setFavorites } = useFavorite()
+    const isFavorite = favorites.includes(animeId)
 
     const handleClose = () => {
         if (isExiting) return
@@ -95,19 +101,38 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                                 className="absolute bottom-0 left-0 right-0 flex h-32 min-h-28 flex-col justify-center bg-linear-to-t from-zinc-900 to-transparent px-5 py-4"
                                 aria-hidden
                             >
-                                <h1
-                                    id="modal-title"
-                                    className="text-2xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-3xl"
-                                >
-                                    {anime.title}
-                                </h1>
-                                {(anime.title_english || anime.title_japanese) && (
-                                    <p className="mt-1 text-sm text-zinc-300 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
-                                        {[anime.title_english, anime.title_japanese]
-                                            .filter(Boolean)
-                                            .join(' · ')}
-                                    </p>
-                                )}
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="min-w-0 flex-1">
+                                        <h1
+                                            id="modal-title"
+                                            className="text-2xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-3xl"
+                                        >
+                                            {anime.title}
+                                        </h1>
+                                        {(anime.title_english || anime.title_japanese) && (
+                                            <p className="mt-1 text-sm text-zinc-300 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+                                                {[anime.title_english, anime.title_japanese]
+                                                    .filter(Boolean)
+                                                    .join(' · ')}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => isFavorite ? setFavorites(prev => prev.filter(id => id !== anime.mal_id)) : setFavorites(prev => [...prev, anime.mal_id])}
+                                        className={`shrink-0 rounded-full p-2.5 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 ${isFavorite
+                                            ? 'bg-red-500/95 text-white ring-2 ring-red-400/80 hover:bg-red-500'
+                                            : 'bg-white/25 text-white backdrop-blur-sm hover:bg-white/35'
+                                            }`}
+                                        aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+                                    >
+                                        {isFavorite ? (
+                                            <HeartSolid className="h-6 w-6 text-white sm:h-7 sm:w-7" />
+                                        ) : (
+                                            <HeartOutline className="h-6 w-6 text-white sm:h-7 sm:w-7" strokeWidth={2} />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                             <button
                                 type="button"

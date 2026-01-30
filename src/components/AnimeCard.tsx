@@ -1,5 +1,8 @@
 import type { AnimeCardModel } from '../types/anime'
 import { TiltCard } from './TiltCard'
+import { useFavorite } from '../context/FavoriteContext'
+import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid'
+import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline'
 
 interface AnimeCardProps {
     anime: AnimeCardModel
@@ -9,9 +12,19 @@ interface AnimeCardProps {
 export default function AnimeCard({ anime, onClick }: AnimeCardProps) {
     const { title, imageUrl, score, year, season, status, genres, synopsis, id } =
         anime
+    const { favorites } = useFavorite()
+    const isFavorite = favorites.includes(id)
+
     return (
         <TiltCard className="w-full h-full cursor-pointer" onClick={() => onClick(id)}>
             <article className="relative bg-zinc-900/80 border border-white/5 hover:border-emerald-400/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_18px_45px_rgba(0,0,0,0.75)] transition-shadow">
+                <button
+                    type="button"
+                    className="absolute z-9 top-2 left-2 rounded-full bg-zinc-900/90 border border-amber-400/70 px-2 py-0.5 text-[11px] font-semibold text-amber-200 shadow-md"
+                    aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+                >
+                    {isFavorite ? <HeartSolid className="h-4 w-4 text-amber-200" /> : <HeartOutline className="h-4 w-4 text-amber-200" strokeWidth={2} />}
+                </button>
                 <div className="relative aspect-3/4 bg-zinc-800 overflow-hidden">
                     {imageUrl ? (
                         <img
