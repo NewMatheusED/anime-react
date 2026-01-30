@@ -30,6 +30,17 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
     }
 
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                handleClose()
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    }, [handleClose])
+
+
+    useEffect(() => {
         if (!isExiting) return
         const t = setTimeout(onClose, EXIT_DURATION_MS)
         return () => clearTimeout(t)
