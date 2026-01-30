@@ -91,3 +91,7 @@ export interface JikanAnime {
 export interface JikanResponse<T> {
     data: T
 }
+export interface JikanTopAnimeBody {
+    data: JikanAnime[]
+    pagination: import('./anime').PaginationModel
+}

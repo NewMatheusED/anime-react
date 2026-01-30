@@ -1,16 +1,12 @@
-import type { JikanAnime, JikanResponse } from "../types/jikan";
-import { httpClient } from "./httpClient";
+import type { JikanAnime, JikanTopAnimeBody } from '../types/jikan'
+import type { PaginationModel } from '../types/anime'
+import { httpClient } from './httpClient'
 
-export async function buscarTodosAnimes(): Promise<JikanAnime[]> {
-  const response = await httpClient.get<JikanResponse<JikanAnime[]>>(
-    "/top/anime"
-  );
-  return response.data.data;
-}
-
-export async function buscarAnimePorId(id: number): Promise<JikanAnime> {
-  const response = await httpClient.get<JikanResponse<JikanAnime>>(
-    `/anime/${id}`
-  );
-  return response.data.data;
+export async function buscarAnimes(
+  page: number = 1,
+  search: string = ''
+): Promise<{ animes: JikanAnime[]; pagination: PaginationModel }> {
+  const url = `/anime?page=${page}&q=${encodeURIComponent(search.trim())}`
+  const { data: body } = await httpClient.get<JikanTopAnimeBody>(url)
+  return { animes: body.data, pagination: body.pagination }
 }

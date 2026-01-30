@@ -12,6 +12,17 @@ export interface AnimeCardModel {
   genres: string[]
 }
 
+export interface PaginationModel {
+  last_visible_page: number
+  has_next_page: boolean
+  current_page: number
+  items: {
+    count: number
+    total: number
+    per_page: number
+  }
+}
+
 export function toAnimeCardModel(anime: JikanAnime): AnimeCardModel {
   return {
     id: anime.mal_id,

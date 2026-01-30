@@ -1,10 +1,14 @@
+import MainLayout from './layout/mainLayout'
 import { Home } from './pages/home'
+import { SearchProvider } from './context/SearchContext'
 
 function App() {
     return (
-        <>
-            <Home />
-        </>
+        <SearchProvider>
+            <MainLayout>
+                <Home />
+            </MainLayout>
+        </SearchProvider>
     )
 }
 
