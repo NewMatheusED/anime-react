@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { AnimeCardModel, PaginationModel, toAnimeCardModel } from "../types/anime";
-import { buscarAnimes } from "../services/animeService";
+import { buscarAnimes, buscarAnimeFull } from "../services/animeService";
+import { JikanAnimeFull } from "../types/jikan";
 
 export function useGetAnime(page: number, search: string = '') {
     const [lista, setLista] = useState<AnimeCardModel[]>([])
@@ -25,4 +26,27 @@ export function useGetAnime(page: number, search: string = '') {
     }, [page, search])
 
     return { lista, loading, error, pagination }
+}
+
+export function useGetAnimeFull(animeId: number) {
+    const [anime, setAnime] = useState<JikanAnimeFull | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<Error | null>(null)
+
+    useEffect(() => {
+        async function carregarAnime() {
+            try {
+                setLoading(true)
+                const dados = await buscarAnimeFull(animeId)
+                setAnime(dados)
+            } catch (err) {
+                setError(err as Error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        carregarAnime()
+    }, [animeId])
+
+    return { anime, loading, error }
 }

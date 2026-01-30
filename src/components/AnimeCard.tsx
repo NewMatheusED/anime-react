@@ -3,14 +3,15 @@ import { TiltCard } from './TiltCard'
 
 interface AnimeCardProps {
     anime: AnimeCardModel
+    onClick: (id: number) => void
 }
 
-export default function AnimeCard({ anime }: AnimeCardProps) {
-    const { title, imageUrl, score, year, season, status, genres, synopsis } =
+export default function AnimeCard({ anime, onClick }: AnimeCardProps) {
+    const { title, imageUrl, score, year, season, status, genres, synopsis, id } =
         anime
     return (
-        <TiltCard className="w-full h-full cursor-pointer">
-            <article className="cursor-pointer relative bg-zinc-900/80 border border-white/5 hover:border-emerald-400/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_18px_45px_rgba(0,0,0,0.75)] transition-shadow">
+        <TiltCard className="w-full h-full cursor-pointer" onClick={() => onClick(id)}>
+            <article className="relative bg-zinc-900/80 border border-white/5 hover:border-emerald-400/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_18px_45px_rgba(0,0,0,0.75)] transition-shadow">
                 <div className="relative aspect-3/4 bg-zinc-800 overflow-hidden">
                     {imageUrl ? (
                         <img

@@ -6,6 +6,7 @@ type TiltCardProps = {
   className?: string;
   maxRotateDeg?: number;
   scale?: number;
+  onClick?: () => void;
 };
 
 type TiltState = {
@@ -37,6 +38,7 @@ export function TiltCard({
   className,
   maxRotateDeg = 12,
   scale = 1.06,
+  onClick,
 }: TiltCardProps) {
   const [state, setState] = useState<TiltState>(INITIAL);
   const gradientId = useId();
@@ -102,6 +104,7 @@ export function TiltCard({
         onPointerMove={onPointerMove}
         style={containerStyle}
         aria-describedby={gradientId}
+        onClick={onClick}
       >
         <div className="tiltCard-shadow" />
         <div className="tiltCard-layers">{children}</div>
