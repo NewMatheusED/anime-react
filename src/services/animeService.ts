@@ -29,7 +29,7 @@ export async function buscarTopAnimes(
 
 export async function buscarAnimes(
   page: number = 1,
-  search: string = ''
+  search: string = '',
 ): Promise<{ animes: JikanAnime[]; pagination: PaginationModel }> {
   const url = `/anime?page=${page}&q=${encodeURIComponent(search.trim())}`
   const { data: body } = await httpClient.get<JikanTopAnimeBody>(url)

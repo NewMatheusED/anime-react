@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { AnimeCardModel, PaginationModel, toAnimeCardModel } from '../types/anime'
 import type { JikanTopAnimeParams } from '../types/jikan'
 import {
@@ -98,4 +98,34 @@ export function useGetTopAnime(page: number, filters: JikanTopAnimeParams = {}) 
     pagination,
     refetch: query.refetch,
   }
+}
+
+export function useGetAnimesInfinite(search: string = '') {
+  return useInfiniteQuery({
+    queryKey: ['animes', 'infinite', search],
+    queryFn: async ({ pageParam = 1 }) => {
+      const { animes, pagination } = await buscarAnimes(pageParam, search)
+      return {
+        lista: animes.map(toAnimeCardModel),
+        pagination,
+      }
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.pagination.has_next_page ? lastPage.pagination.current_page + 1 : undefined,
+  })
+}
+
+export function useGetTopAnimeInfinite({ type, filter, rating, sfw }: JikanTopAnimeParams = {}) {
+  return useInfiniteQuery({
+    queryKey: ['top', 'infinite', type, filter, rating, sfw],
+    queryFn: async ({ pageParam = 1 }) => {
+      const { animes, pagination } = await buscarTopAnimes(pageParam, { type, filter, rating, sfw })
+      return {
+        lista: animes.map(toAnimeCardModel),
+        pagination,
+      }
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.pagination.has_next_page ? lastPage.pagination.current_page + 1 : undefined,
+  })
 }
