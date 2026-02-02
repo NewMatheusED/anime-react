@@ -14,7 +14,7 @@ export default function AnimeList({ animes }: AnimeListProps) {
 
     return (
         <section className="w-full max-w-6xl mx-auto">
-            <div className="grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {animes.map(anime => (
                     <AnimeCard key={anime.id} anime={anime} onClick={handleAnimeClick} />
                 ))}
