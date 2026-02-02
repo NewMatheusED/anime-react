@@ -25,12 +25,12 @@ export default function AnimeCard({ anime, onClick }: AnimeCardProps) {
                 >
                     {isFavorite ? <HeartSolid className="h-4 w-4 text-amber-200" /> : <HeartOutline className="h-4 w-4 text-amber-200" strokeWidth={2} />}
                 </button>
-                <div className="relative aspect-3/4 bg-zinc-800 overflow-hidden">
+                <div className="relative aspect-3/4 w-full bg-zinc-800 overflow-hidden">
                     {imageUrl ? (
                         <img
                             src={imageUrl}
                             alt={title}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="absolute inset-0 size-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : null}
                     <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/80 via-zinc-950/20 to-transparent" />

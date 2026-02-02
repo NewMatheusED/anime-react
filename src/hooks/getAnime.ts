@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { AnimeCardModel, PaginationModel, toAnimeCardModel } from '../types/anime'
 import { buscarAnimes, buscarAnimeFull } from '../services/animeService'
-import type { JikanAnimeFull } from '../types/jikan'
 
 export const animeKeys = {
   all: ['animes'] as const,
