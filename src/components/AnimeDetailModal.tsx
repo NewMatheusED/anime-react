@@ -57,29 +57,29 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
 
     return (
         <div
-            className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${backdropClass}`}
-            style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+            className={`fixed inset-0 z-50 flex items-center justify-center bg-page/85 p-4 ${backdropClass}`}
             onClick={handleClose}
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
         >
             <div
-                className={`relative flex w-full max-w-2xl max-h-[90vh] flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl ${contentClass}`}
+                className={`relative flex w-full max-w-2xl max-h-[90vh] flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl ${contentClass}`}
                 onClick={e => e.stopPropagation()}
             >
                 {loading && (
-                    <div className="flex min-h-[320px] items-center justify-center text-zinc-400">
+                    <div className="flex min-h-[320px] items-center justify-center text-text-muted">
                         <span className="text-lg">Carregando...</span>
                     </div>
                 )}
 
                 {error && (
-                    <div className="flex min-h-[200px] flex-col items-center justify-center gap-4 p-8 text-red-400">
+                    <div className="flex min-h-[200px] flex-col items-center justify-center gap-4 p-8 text-error">
                         <p>Erro ao carregar o anime.</p>
                         <button
+                            type="button"
                             onClick={handleClose}
-                            className="rounded-lg bg-emerald-500 px-4 py-2 text-white hover:bg-emerald-600"
+                            className="rounded-xl bg-accent px-4 py-2 text-white transition hover:bg-accent-hover"
                         >
                             Fechar
                         </button>
@@ -89,7 +89,7 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                 {!loading && !error && anime && (
                     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
                         {/* Capa do anime (imagem pura) */}
-                        <header className="relative aspect-2/1 min-h-[200px] shrink-0 overflow-hidden bg-zinc-800">
+                        <header className="relative aspect-2/1 min-h-[200px] shrink-0 overflow-hidden bg-surface-elevated">
                             {getCoverUrl(anime) && (
                                 <img
                                     src={getCoverUrl(anime)!}
@@ -98,19 +98,19 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                                 />
                             )}
                             <div
-                                className="absolute bottom-0 left-0 right-0 flex h-32 min-h-28 flex-col justify-center bg-linear-to-t from-zinc-900 to-transparent px-5 py-4"
+                                className="absolute bottom-0 left-0 right-0 flex h-32 min-h-28 flex-col justify-center bg-linear-to-t from-surface to-transparent px-5 py-4"
                                 aria-hidden
                             >
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="min-w-0 flex-1">
                                         <h1
                                             id="modal-title"
-                                            className="text-2xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-3xl"
+                                            className="text-2xl font-bold leading-tight text-text-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-3xl"
                                         >
                                             {anime.title}
                                         </h1>
                                         {(anime.title_english || anime.title_japanese) && (
-                                            <p className="mt-1 text-sm text-zinc-300 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+                                            <p className="mt-1 text-sm text-text-secondary drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
                                                 {[anime.title_english, anime.title_japanese]
                                                     .filter(Boolean)
                                                     .join(' · ')}
@@ -120,9 +120,9 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                                     <button
                                         type="button"
                                         onClick={() => isFavorite ? setFavorites(prev => prev.filter(id => id !== anime.mal_id)) : setFavorites(prev => [...prev, anime.mal_id])}
-                                        className={`shrink-0 rounded-full p-2.5 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 ${isFavorite
-                                            ? 'bg-red-500/95 text-white ring-2 ring-red-400/80 hover:bg-red-500'
-                                            : 'bg-white/25 text-white backdrop-blur-sm hover:bg-white/35'
+                                        className={`shrink-0 rounded-full p-2.5 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 ${isFavorite
+                                            ? 'bg-error text-white ring-2 ring-error/80 hover:opacity-90'
+                                            : 'bg-white/20 text-white backdrop-blur-sm hover:bg-white/30'
                                             }`}
                                         aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
                                     >
@@ -137,7 +137,7 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                             <button
                                 type="button"
                                 onClick={handleClose}
-                                className="absolute right-3 top-3 rounded-full bg-black/50 p-2 text-white/90 backdrop-blur-sm hover:bg-black/70 hover:text-white"
+                                className="absolute right-3 top-3 rounded-full bg-page/70 p-2 text-text-primary backdrop-blur-sm hover:bg-page/90"
                                 aria-label="Fechar"
                             >
                                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,34 +151,34 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                             {/* Score + meta em linha */}
                             <div className="mb-5 flex flex-wrap items-center gap-3 text-sm">
                                 {anime.score != null && (
-                                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 px-3 py-1 text-amber-200">
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-badge-soft px-3 py-1 text-badge">
                                         ⭐ {anime.score.toFixed(1)}
                                         {anime.scored_by != null && (
-                                            <span className="text-amber-200/70">({anime.scored_by.toLocaleString()})</span>
+                                            <span className="text-badge/80">({anime.scored_by.toLocaleString()})</span>
                                         )}
                                     </span>
                                 )}
                                 {anime.type && (
-                                    <span className="rounded-full bg-zinc-700/80 px-3 py-1 text-zinc-200">{anime.type}</span>
+                                    <span className="rounded-full bg-surface-elevated px-3 py-1 text-text-secondary">{anime.type}</span>
                                 )}
                                 {anime.episodes != null && (
-                                    <span className="text-zinc-400">{anime.episodes} eps</span>
+                                    <span className="text-text-muted">{anime.episodes} eps</span>
                                 )}
                                 {anime.status && (
-                                    <span className="text-emerald-400">{anime.status}</span>
+                                    <span className="text-accent">{anime.status}</span>
                                 )}
                                 {anime.year != null && (
-                                    <span className="text-zinc-400">{anime.season ? `${anime.season} ${anime.year}` : anime.year}</span>
+                                    <span className="text-text-muted">{anime.season ? `${anime.season} ${anime.year}` : anime.year}</span>
                                 )}
                                 {anime.duration && (
-                                    <span className="text-zinc-400">{anime.duration}</span>
+                                    <span className="text-text-muted">{anime.duration}</span>
                                 )}
                             </div>
 
                             {anime.synopsis && (
                                 <section className="mb-5">
-                                    <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">Sinopse</h2>
-                                    <p className="leading-relaxed text-zinc-300">{anime.synopsis}</p>
+                                    <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-muted">Sinopse</h2>
+                                    <p className="leading-relaxed text-text-secondary">{anime.synopsis}</p>
                                 </section>
                             )}
 
@@ -200,8 +200,8 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
 
                             {anime.studios && anime.studios.length > 0 && (
                                 <section className="mb-5">
-                                    <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">Estúdios</h2>
-                                    <p className="text-zinc-300">{anime.studios.map(s => s.name).join(', ')}</p>
+                                    <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-muted">Estúdios</h2>
+                                    <p className="text-text-secondary">{anime.studios.map(s => s.name).join(', ')}</p>
                                 </section>
                             )}
 
@@ -212,7 +212,7 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                                             href={anime.trailer.embed_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 rounded-lg bg-red-600/90 px-4 py-2 text-sm font-medium text-white hover:bg-red-600"
+                                            className="inline-flex items-center gap-2 rounded-xl bg-error px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
                                         >
                                             Assistir trailer
                                         </a>
@@ -222,7 +222,7 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                                             href={anime.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 rounded-lg bg-zinc-600 px-4 py-2 text-sm text-zinc-200 hover:bg-zinc-500"
+                                            className="inline-flex items-center gap-2 rounded-xl bg-surface-elevated border border-border px-4 py-2 text-sm text-text-secondary transition hover:bg-accent hover:border-accent hover:text-white"
                                         >
                                             Ver no MyAnimeList
                                         </a>

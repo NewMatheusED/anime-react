@@ -8,16 +8,26 @@ interface PaginationProps {
 
 export default function Pagination({ page, totalPages, onPageChange }: PaginationProps) {
     return (
-        <div className="flex items-center justify-center gap-2 py-4">
-            <button className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg px-4 py-2 text-sm font-medium shadow-sm hover:shadow-md transition" onClick={() => onPageChange(page - 1)} disabled={page === 1}>
-                <ChevronLeftIcon className="w-4 h-4 text-white" />
+        <nav className="flex items-center justify-center gap-3 py-6" aria-label="Paginação">
+            <button
+                type="button"
+                onClick={() => onPageChange(page - 1)}
+                disabled={page === 1}
+                className="inline-flex h-10 items-center justify-center rounded-xl border border-border bg-surface-elevated px-4 text-sm font-medium text-text-primary transition hover:bg-accent hover:border-accent hover:text-white disabled:opacity-40 disabled:pointer-events-none disabled:hover:bg-surface-elevated disabled:hover:border-border disabled:hover:text-text-primary"
+            >
+                <ChevronLeftIcon className="h-5 w-5" />
             </button>
-            <span className="text-sm font-medium text-zinc-50">{page} de {totalPages}</span>
-            {page < totalPages && (
-                <button className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg px-4 py-2 text-sm font-medium shadow-sm hover:shadow-md transition" onClick={() => onPageChange(page + 1)} disabled={page === totalPages}>
-                    <ChevronRightIcon className="w-4 h-4 text-white" />
-                </button>
-            )}
-        </div>
+            <span className="min-w-28 text-center text-sm font-medium text-text-secondary">
+                {page} de {totalPages}
+            </span>
+            <button
+                type="button"
+                onClick={() => onPageChange(page + 1)}
+                disabled={page >= totalPages}
+                className="inline-flex h-10 items-center justify-center rounded-xl border border-border bg-surface-elevated px-4 text-sm font-medium text-text-primary transition hover:bg-accent hover:border-accent hover:text-white disabled:opacity-40 disabled:pointer-events-none disabled:hover:bg-surface-elevated disabled:hover:border-border disabled:hover:text-text-primary"
+            >
+                <ChevronRightIcon className="h-5 w-5" />
+            </button>
+        </nav>
     )
 }

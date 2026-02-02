@@ -1,5 +1,6 @@
 import type { PointerEvent, ReactNode } from "react";
 import { useId, useMemo, useState } from "react";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 type TiltCardProps = {
   children: ReactNode;
@@ -42,13 +43,17 @@ export function TiltCard({
 }: TiltCardProps) {
   const [state, setState] = useState<TiltState>(INITIAL);
   const gradientId = useId();
+  const isTouchOrMobile = useMediaQuery("(max-width: 640px)");
 
   const containerStyle = useMemo(() => {
+    if (isTouchOrMobile) {
+      return { transform: "none" } as const;
+    }
     const s = state.isOver ? scale : 1;
     return {
       transform: `rotateX(${state.rotateX}deg) rotateY(${state.rotateY}deg) scale3d(${s},${s},${s})`,
     } as const;
-  }, [state.isOver, state.rotateX, state.rotateY, scale]);
+  }, [isTouchOrMobile, state.isOver, state.rotateX, state.rotateY, scale]);
 
   const shineStyle = useMemo(() => {
     return {
@@ -96,12 +101,12 @@ export function TiltCard({
   }
 
   return (
-    <div className={className} style={{ perspective: "900px" }}>
+    <div className={className} style={isTouchOrMobile ? undefined : { perspective: "900px" }}>
       <div
         className="tiltCard"
-        onPointerEnter={onPointerEnter}
-        onPointerLeave={onPointerLeave}
-        onPointerMove={onPointerMove}
+        onPointerEnter={isTouchOrMobile ? undefined : onPointerEnter}
+        onPointerLeave={isTouchOrMobile ? undefined : onPointerLeave}
+        onPointerMove={isTouchOrMobile ? undefined : onPointerMove}
         style={containerStyle}
         aria-describedby={gradientId}
         onClick={onClick}

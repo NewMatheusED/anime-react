@@ -16,16 +16,16 @@ export default function AnimeCard({ anime, onClick }: AnimeCardProps) {
     const isFavorite = favorites.includes(id)
 
     return (
-        <TiltCard className="w-full h-full cursor-pointer" onClick={() => onClick(id)}>
-            <article className="relative bg-zinc-900/80 border border-white/5 hover:border-emerald-400/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_18px_45px_rgba(0,0,0,0.75)] transition-shadow">
+        <TiltCard className="isolate w-full min-h-0 cursor-pointer" onClick={() => onClick(id)}>
+            <article className="relative bg-surface border border-border-subtle hover:border-accent/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_18px_45px_rgba(0,0,0,0.6)] transition-all duration-200">
                 <button
                     type="button"
-                    className="absolute z-9 top-2 left-2 rounded-full bg-zinc-900/90 border border-amber-400/70 px-2 py-0.5 text-[11px] font-semibold text-amber-200 shadow-md"
+                    className="absolute z-10 top-2 left-2 rounded-full bg-surface-elevated/95 border border-badge px-2 py-0.5 text-[11px] font-semibold text-badge shadow-md transition hover:bg-badge-soft"
                     aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
                 >
-                    {isFavorite ? <HeartSolid className="h-4 w-4 text-amber-200" /> : <HeartOutline className="h-4 w-4 text-amber-200" strokeWidth={2} />}
+                    {isFavorite ? <HeartSolid className="h-4 w-4 text-badge" /> : <HeartOutline className="h-4 w-4 text-badge" strokeWidth={2} />}
                 </button>
-                <div className="relative aspect-3/4 w-full bg-zinc-800 overflow-hidden">
+                <div className="relative aspect-3/4 w-full bg-surface-elevated overflow-hidden">
                     {imageUrl ? (
                         <img
                             src={imageUrl}
@@ -33,28 +33,28 @@ export default function AnimeCard({ anime, onClick }: AnimeCardProps) {
                             className="absolute inset-0 size-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : null}
-                    <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/80 via-zinc-950/20 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-page/90 via-page/20 to-transparent" />
                     {typeof score === 'number' && (
-                        <div className="absolute top-2 right-2 rounded-full bg-zinc-900/90 border border-amber-400/70 px-2 py-0.5 text-[11px] font-semibold text-amber-200 shadow-md">
+                        <div className="absolute top-2 right-2 rounded-full bg-surface-elevated/95 border border-badge px-2 py-0.5 text-[11px] font-semibold text-badge shadow-md">
                             ⭐ {score.toFixed(1)}
                         </div>
                     )}
                 </div>
                 <div className="p-3 flex flex-col gap-1.5">
-                    <h3 className="text-zinc-50 text-sm font-semibold leading-snug line-clamp-2">
+                    <h3 className="text-text-primary text-sm font-semibold leading-snug line-clamp-2">
                         {title}
                     </h3>
-                    <p className="text-zinc-300 text-xs mt-0.5">
+                    <p className="text-text-secondary text-xs mt-0.5">
                         {year ? `${year}` : 'Ano desconhecido'}
                         {season ? ` • ${season}` : ''}
                     </p>
                     {status ? (
-                        <p className="text-emerald-300 text-[11px] mt-0.5">
+                        <p className="text-accent text-[11px] mt-0.5">
                             {status}
                         </p>
                     ) : null}
                     {synopsis ? (
-                        <p className="text-zinc-400 text-[11px] leading-snug mt-1 line-clamp-3">
+                        <p className="text-text-secondary text-[11px] leading-snug mt-1 line-clamp-3">
                             {synopsis}
                         </p>
                     ) : null}
@@ -63,7 +63,7 @@ export default function AnimeCard({ anime, onClick }: AnimeCardProps) {
                             {genres.slice(0, 3).map(g => (
                                 <li
                                     key={g}
-                                    className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-900/80 text-zinc-200 border border-white/10"
+                                    className="text-[10px] px-2 py-0.5 rounded-full bg-surface-elevated text-text-secondary border border-border-subtle"
                                 >
                                     {g}
                                 </li>

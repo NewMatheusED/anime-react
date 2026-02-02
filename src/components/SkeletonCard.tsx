@@ -1,9 +1,9 @@
-const SKELETON_PULSE = 'bg-zinc-700 rounded animate-pulse'
+const SKELETON_PULSE = 'bg-border rounded animate-pulse'
 
 function SkeletonCardItem() {
     return (
-        <article className="w-full h-full min-w-0 relative bg-zinc-900/80 border border-white/5 rounded-2xl overflow-hidden shadow-lg transition-shadow">
-            <div className="relative aspect-3/4 bg-zinc-800 overflow-hidden">
+        <article className="w-full h-full min-w-0 relative bg-surface border border-border-subtle rounded-2xl overflow-hidden shadow-lg transition-shadow">
+            <div className="relative aspect-3/4 bg-surface-elevated overflow-hidden">
                 <div className={`w-full h-full ${SKELETON_PULSE}`} />
             </div>
             <div className="p-3 flex flex-col gap-1.5">

@@ -20,7 +20,7 @@ export const Home = () => {
 
     if (loading) {
         return (
-            <section className="w-full max-w-6xl mx-auto px-4 py-8">
+            <section className="w-full">
                 <div className="grid gap-4 sm:gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
                     <SkeletonCard quantity={10} />
                 </div>
@@ -30,22 +30,18 @@ export const Home = () => {
 
     if (error) {
         return (
-            <section className="w-full max-w-6xl mx-auto px-4 py-8">
-                <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-2xl font-bold text-red-500">Erro ao carregar os animes</h1>
-                    <p className="text-zinc-400">{error?.message ?? 'Erro desconhecido'}</p>
-                </div>
+            <section className="flex min-h-[40vh] flex-col items-center justify-center rounded-2xl border border-border bg-surface p-8 text-center">
+                <h2 className="text-xl font-semibold text-error">Erro ao carregar os animes</h2>
+                <p className="mt-2 text-sm text-text-secondary">{error?.message ?? 'Erro desconhecido'}</p>
             </section>
         )
     }
 
     if (lista.length === 0) {
         return (
-            <section className="w-full max-w-6xl mx-auto px-4 py-8">
-                <div className="flex flex-col items-center justify-center gap-4">
-                    <h1 className="text-2xl font-bold text-zinc-400">Nenhum anime encontrado</h1>
-                    <p className="text-zinc-400">Tente outra busca ou verifique sua conexão com a internet</p>
-                </div>
+            <section className="flex min-h-[40vh] flex-col items-center justify-center rounded-2xl border border-border-subtle bg-surface p-8 text-center">
+                <h2 className="text-xl font-semibold text-text-primary">Nenhum anime encontrado</h2>
+                <p className="mt-2 text-sm text-text-secondary">Tente outra busca ou verifique sua conexão com a internet.</p>
             </section>
         )
     }

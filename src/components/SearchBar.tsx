@@ -8,10 +8,18 @@ export default function SearchBar({ onSearch }: { onSearch: (search: string) => 
         onSearch(search)
     }
     return (
-        <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <input type="text" name="search" placeholder="Pesquisar" className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-zinc-50 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition" />
-            <button type="submit" className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg px-4 py-2 text-sm font-medium shadow-sm hover:shadow-md transition">
-                <MagnifyingGlassIcon className="w-4 h-4 text-white" />
+        <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
+            <input
+                type="text"
+                name="search"
+                placeholder="Buscar animes..."
+                className="w-full rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent-soft transition"
+            />
+            <button
+                type="submit"
+                className="shrink-0 rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-accent/25 transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface"
+            >
+                <MagnifyingGlassIcon className="h-5 w-5" />
             </button>
         </form>
     )
