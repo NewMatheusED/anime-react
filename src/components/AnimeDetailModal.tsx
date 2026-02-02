@@ -3,7 +3,8 @@ import { useGetAnimeFull } from '../hooks/getAnime'
 import type { JikanAnimeFull } from '../types/jikan'
 import { useFavorite } from '../store/appStore'
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid'
-import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline'
+import { HeartIcon as HeartOutline, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { Link } from '@tanstack/react-router'
 
 
 const EXIT_DURATION_MS = 220
@@ -205,30 +206,36 @@ export default function AnimeDetailModal({ animeId, onClose }: AnimeDetailModalP
                                 </section>
                             )}
 
-                            {(anime.trailer?.embed_url || anime.url) && (
-                                <section className="flex flex-wrap gap-3">
-                                    {anime.trailer?.embed_url && (
-                                        <a
-                                            href={anime.trailer.embed_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 rounded-xl bg-error px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
-                                        >
-                                            Assistir trailer
-                                        </a>
-                                    )}
-                                    {anime.url && (
-                                        <a
-                                            href={anime.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 rounded-xl bg-surface-elevated border border-border px-4 py-2 text-sm text-text-secondary transition hover:bg-accent hover:border-accent hover:text-white"
-                                        >
-                                            Ver no MyAnimeList
-                                        </a>
-                                    )}
-                                </section>
-                            )}
+                            <section className="flex flex-wrap gap-3">
+                                <Link
+                                    to="/anime/$id"
+                                    params={{ id: anime.mal_id.toString() }}
+                                    className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-hover"
+                                >
+                                    <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                                    Ver página completa
+                                </Link>
+                                {anime.trailer?.embed_url && (
+                                    <a
+                                        href={anime.trailer.embed_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 rounded-xl bg-error px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+                                    >
+                                        Assistir trailer
+                                    </a>
+                                )}
+                                {anime.url && (
+                                    <a
+                                        href={anime.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-elevated px-4 py-2 text-sm text-text-secondary transition hover:border-accent hover:text-accent"
+                                    >
+                                        Ver no MyAnimeList
+                                    </a>
+                                )}
+                            </section>
                         </div>
                     </div>
                 )}

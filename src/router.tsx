@@ -9,6 +9,7 @@ import MainLayout from './layout/mainLayout'
 import Home from './pages/home'
 import Favorites from './pages/favorites'
 import Top from './pages/top'
+import AnimeDetail from './pages/animeDetail'
 
 const RootLayout = () => (
   <>
@@ -41,7 +42,13 @@ const topRoute = createRoute({
   component: Top,
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, favoritesRoute, topRoute])
+const animeDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/anime/$id',
+  component: AnimeDetail,
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, favoritesRoute, topRoute, animeDetailRoute])
 
 export const router = createRouter({ routeTree })
 
