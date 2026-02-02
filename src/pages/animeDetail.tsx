@@ -16,7 +16,6 @@ import { PlayCircleIcon as PlayCircleSolid } from '@heroicons/react/24/solid'
 
 function getCoverUrl(anime: JikanAnimeFull): string | null {
   const img = anime.images
-  console.log(img)
   return (
     img?.webp?.large_image_url ??
     img?.jpg?.large_image_url ??
