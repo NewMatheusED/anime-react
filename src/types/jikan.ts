@@ -152,6 +152,37 @@ export interface JikanAnime {
 export interface JikanResponse<T> {
     data: T
 }
+
+/** Tipos de anime para busca/top (anime_search_query_type) */
+export type JikanAnimeType =
+  | 'tv'
+  | 'movie'
+  | 'ova'
+  | 'special'
+  | 'ona'
+  | 'music'
+  | 'cm'
+  | 'pv'
+  | 'tv_special'
+
+/** Filtros do endpoint top (top_anime_filter) */
+export type JikanTopAnimeFilter =
+  | 'airing'
+  | 'upcoming'
+  | 'bypopularity'
+  | 'favorite'
+
+/** Classificação etária (anime_search_query_rating) */
+export type JikanAnimeRating = 'g' | 'pg' | 'pg13' | 'r17' | 'r' | 'rx'
+
+export interface JikanTopAnimeParams {
+  page?: number
+  type?: JikanAnimeType
+  filter?: JikanTopAnimeFilter
+  rating?: JikanAnimeRating
+  sfw?: boolean
+}
+
 export interface JikanTopAnimeBody {
     data: JikanAnime[]
     pagination: import('./anime').PaginationModel

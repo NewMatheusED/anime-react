@@ -8,6 +8,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import MainLayout from './layout/mainLayout'
 import Home from './pages/home'
 import Favorites from './pages/favorites'
+import Top from './pages/top'
 
 const RootLayout = () => (
   <>
@@ -34,7 +35,13 @@ const favoritesRoute = createRoute({
   component: Favorites,
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, favoritesRoute])
+const topRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/top',
+  component: Top,
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, favoritesRoute, topRoute])
 
 export const router = createRouter({ routeTree })
 
