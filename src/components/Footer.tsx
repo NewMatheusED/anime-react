@@ -3,8 +3,7 @@ import { FilmIcon, CodeBracketIcon } from '@heroicons/react/24/outline'
 
 const footerNav = [
   { to: '/', label: 'Início' },
-  { to: '#', label: 'Top Animes' },
-  { to: '#', label: 'Favoritos' },
+  { to: '/favoritos', label: 'Favoritos' },
 ]
 
 const footerMeta = [

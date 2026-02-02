@@ -5,7 +5,7 @@ import { useSearch } from '../store/appStore'
 import { useGetAnime } from '../hooks/getAnime'
 import { useState, useEffect } from 'react'
 
-export const Home = () => {
+export default function Home() {
     const search = useSearch()
     const [page, setPage] = useState(1)
     const { lista, loading, pagination, error } = useGetAnime(page, search)

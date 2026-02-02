@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { AnimeCardModel, PaginationModel, toAnimeCardModel } from '../types/anime'
-import { buscarAnimes, buscarAnimeFull } from '../services/animeService'
+import { buscarAnimes, buscarAnimeFull, buscarAnimeById } from '../services/animeService'
 
 export const animeKeys = {
   all: ['animes'] as const,
@@ -8,6 +8,24 @@ export const animeKeys = {
   list: (page: number, search: string) => [...animeKeys.lists(), page, search] as const,
   details: () => [...animeKeys.all, 'detail'] as const,
   detail: (id: number) => [...animeKeys.details(), id] as const,
+  ids: (ids: number[]) => [...animeKeys.all, 'ids', ...ids] as const,
+}
+
+export function useGetAnimesByIds(ids: number[]) {
+  const query = useQuery({
+    queryKey: animeKeys.ids(ids),
+    queryFn: () => Promise.all(ids.map(buscarAnimeById)),
+    enabled: ids.length > 0,
+  })
+
+  const lista: AnimeCardModel[] = query.data?.map(toAnimeCardModel) ?? []
+  
+  return {
+    lista,
+    loading: query.isPending,
+    error: query.error as Error | null,
+    refetch: query.refetch,
+  }
 }
 
 export function useGetAnime(page: number, search: string = '') {

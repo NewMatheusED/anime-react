@@ -11,6 +11,12 @@ export async function buscarAnimes(
   return { animes: body.data, pagination: body.pagination }
 }
 
+export async function buscarAnimeById(id: number): Promise<JikanAnime> {
+  const url = `/anime/${id}`
+  const { data: body } = await httpClient.get<{ data: JikanAnime }>(url)
+  return body.data
+}
+
 export async function buscarAnimeFull(id: number): Promise<JikanAnimeFull> {
   const url = `/anime/${id}/full`
   const { data: body } = await httpClient.get<{ data: JikanAnimeFull }>(url)

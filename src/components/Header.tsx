@@ -11,6 +11,7 @@ import { setSearch } from '../store/appStore'
 
 const navLinks = [
   { to: '/', label: 'Início' },
+  { to: '/favoritos', label: 'Favoritos' },
 ]
 
 export default function Header() {
