@@ -1,8 +1,10 @@
+import { useEffect } from 'react'
 import {
   createRouter,
   createRoute,
   createRootRoute,
   Outlet,
+  useRouterState,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import MainLayout from './layout/mainLayout'
@@ -11,8 +13,27 @@ import Favorites from './pages/favorites'
 import Top from './pages/top'
 import AnimeDetail from './pages/animeDetail'
 
+function ScrollToTop() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  useEffect(() => {
+    let cancelled = false
+    const id1 = requestAnimationFrame(() => {
+      if (cancelled) return
+      requestAnimationFrame(() => {
+        if (!cancelled) window.scrollTo(0, 0)
+      })
+    })
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(id1)
+    }
+  }, [pathname])
+  return null
+}
+
 const RootLayout = () => (
   <>
+    <ScrollToTop />
     <MainLayout>
       <Outlet />
     </MainLayout>
