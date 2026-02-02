@@ -1,6 +1,6 @@
 import type { AnimeCardModel } from '../types/anime'
 import { TiltCard } from './TiltCard'
-import { useFavorite } from '../context/FavoriteContext'
+import { useFavorite } from '../store/appStore'
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid'
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline'
 

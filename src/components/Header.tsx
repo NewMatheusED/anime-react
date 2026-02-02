@@ -1,8 +1,7 @@
 import SearchBar from './SearchBar'
-import { useSearch } from '../context/SearchContext'
+import { setSearch } from '../store/appStore'
 
 export default function Header() {
-    const { setSearch } = useSearch()
 
     return (
         <header className="bg-zinc-900 flex items-center justify-between py-4">

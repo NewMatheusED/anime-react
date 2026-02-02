@@ -5,20 +5,16 @@ import {
   Outlet,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { SearchProvider } from './context/SearchContext'
-import { FavoriteProvider } from './context/FavoriteContext'
 import MainLayout from './layout/mainLayout'
 import { Home } from './pages/home'
 
 const RootLayout = () => (
-  <SearchProvider>
-    <FavoriteProvider>
-      <MainLayout>
-        <Outlet />
-      </MainLayout>
-      <TanStackRouterDevtools initialIsOpen={false} />
-    </FavoriteProvider>
-  </SearchProvider>
+  <>
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
+    <TanStackRouterDevtools initialIsOpen={false} />
+  </>
 )
 
 const rootRoute = createRootRoute({

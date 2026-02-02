@@ -1,12 +1,12 @@
 import AnimeList from '../components/AnimeList'
 import SkeletonCard from '../components/SkeletonCard'
 import Pagination from '../components/Pagination'
-import { useSearch } from '../context/SearchContext'
+import { useSearch } from '../store/appStore'
 import { useGetAnime } from '../hooks/getAnime'
 import { useState, useEffect } from 'react'
 
 export const Home = () => {
-    const { search } = useSearch()
+    const search = useSearch()
     const [page, setPage] = useState(1)
     const { lista, loading, pagination, error } = useGetAnime(page, search)
 
